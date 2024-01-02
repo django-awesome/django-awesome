@@ -2,105 +2,102 @@
 
 The curated list of awesome libraries incorporated into a project, ready to form the core for projects of any scale and can be deployed to production right after pulling the code.
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/riso-tech/django-awesome/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/riso-tech/django-awesome/?branch=main)
+[![Code Coverage](https://scrutinizer-ci.com/g/riso-tech/django-awesome/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/riso-tech/django-awesome/?branch=main)
+[![Build Status](https://scrutinizer-ci.com/g/riso-tech/django-awesome/badges/build.png?b=main)](https://scrutinizer-ci.com/g/riso-tech/django-awesome/build-status/main)
+[![Code Intelligence Status](https://scrutinizer-ci.com/g/riso-tech/django-awesome/badges/code-intelligence.svg?b=main)](https://scrutinizer-ci.com/code-intelligence)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/riso-tech/django-awesome/main.svg)](https://results.pre-commit.ci/latest/github/riso-tech/django-awesome/main)
+
 [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
 [![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
 License: MIT
 
-## Settings
+## Release Features
 
-Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).
+_For a complete listing of all improvements, see [Django Awesome](https://django-awesome.github.io/)_
 
-## Basic Commands
+#### APIs
 
-### Setting Up Your Users
+- [x] [drf-spectacular](https://github.com/tfranzel/drf-spectacular) - Sane and flexible OpenAPI 3 schema generation for Django REST framework.
 
-- To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+#### Commands
 
-- To create a **superuser account**, use this command:
+- [x] [django-extensions](https://github.com/django-extensions/django-extensions/) - Custom management extensions, notably `runserver_plus` and `shell_plus`.
 
-      $ python manage.py createsuperuser
+#### Configuration
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
+- [x] [environs](https://github.com/sloria/environs) - Simplified environment variable parsing that comes with a [Django helper](https://github.com/sloria/environs#usage-with-django) that installs additional packages.
 
-### Type checks
+#### General
 
-Running type checks with mypy:
+- [x] [django-filter](https://github.com/carltongibson/django-filter) - Powerful filters based on Django QuerySets.
 
-    $ mypy one
+#### Model Fields
 
-### Test coverage
+- [x] [django-model-utils](https://github.com/jazzband/django-model-utils) - Django model mixins and utilities.
 
-To run the tests, check your test coverage, and generate an HTML coverage report:
+#### Static Assets
 
-    $ coverage run -m pytest
-    $ coverage html
-    $ open htmlcov/index.html
+- [x] [whitenoise](https://github.com/evansd/whitenoise) - Simplified static file serving for Python websites.
 
-#### Running tests with pytest
+#### Task Queues
 
-    $ pytest
+- [x] [django-redis](https://github.com/niwinz/django-redis) - Full-featured Redis cache backend for Django.
+- [x] [celery](https://github.com/celery/celery) - Robust and broker-agnostic task queues for bigger, performance-focused projects.
+- [x] [flower](https://github.com/mher/flower) - Flower is a web-based tool for monitoring and administrating Celery clusters.
+- [x] [django-celery-beat](https://github.com/celery/django-celery-beat) - A periodic task scheduler with database configured by Django's Admin Panel.
 
-### Live reloading and Sass CSS compilation
+#### Testing
 
-Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
+- [x] [django-debug-toolbar](https://github.com/jazzband/django-debug-toolbar/) - Configurable panels to debug requests/responses.
+- [x] [pytest-django](https://github.com/pytest-dev/pytest-django) - Use pytest features in Django.
+- [x] [factory-boy](https://github.com/FactoryBoy/factory_boy) - Test fixtures replacement.
 
-### Celery
+#### URLs
 
-This app comes with Celery.
+- [x] [dj-database-url](https://github.com/jacobian/dj-database-url) - Database URLs.
 
-To run a celery worker:
+#### Users
 
-```bash
-cd one
-celery -A config.celery_app worker -l info
-```
+- [x] Comes with custom user model ready to go
+- [x] [django-allauth](https://github.com/pennersr/django-allauth/) - Improved user registration including social auth.
 
-Please note: For Celery's import magic to work, it is important _where_ the celery commands are run. If you are in the same folder with _manage.py_, you should be right.
+### Python Packages
 
-To run [periodic tasks](https://docs.celeryq.dev/en/stable/userguide/periodic-tasks.html), you'll need to start the celery beat scheduler service. You can start it as a standalone process:
+_A short list of Python packages that implement support project._
 
-```bash
-cd one
-celery -A config.celery_app beat
-```
+- [x] Integration with [black](https://github.com/psf/black) - Uncompromising Python code formatter.
+- [x] Integration with [pillow](https://github.com/python-pillow/Pillow) - Python Imaging Library.
+- [x] Integration with [pytest](https://github.com/pytest-dev/pytest/) - Testing framework.
+- [x] Integration with [Mailpit](https://github.com/axllent/mailpit/) for local email testing
+- [x] Integration with [Sentry](https://sentry.io/welcome/) for error logging
 
-or you can embed the beat service inside a worker with the `-B` option (not recommended for production use):
+### Frontend
 
-```bash
-cd one
-celery -A config.celery_app worker -B -l info
-```
+- [x] Custom static build using Gulp
 
-### Email Server
+### Other
 
-In development, it is often nice to be able to see emails that are being sent from your application. For that reason local SMTP server [Mailpit](https://github.com/axllent/mailpit) with a web interface is available as docker container.
+- [x] Default integration with [pre-commit](https://github.com/pre-commit/pre-commit) for identifying simple issues before submission to code review
+- [x] Docker support using [docker-compose](https://github.com/docker/compose) for development and production (using [Traefik](https://traefik.io/) with [LetsEncrypt](https://letsencrypt.org/) support)
 
-Container mailpit will start automatically when you will run all docker containers.
-Please check [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html) for more details how to start all containers.
+## Support this Project!
 
-With Mailpit running, to view messages that are sent by your application, open your browser and go to `http://127.0.0.1:8025`
+This project is an open source project run by volunteers. You can sponsor us via [GitHub Sponsors](https://github.com/sponsors/riso-tech):
 
-### Sentry
+Bin Nguyễn, Project Lead ([GitHub](https://github.com/riso-tech)): expertise in Django.
 
-Sentry is an error logging aggregator service. You can sign up for a free account at <https://sentry.io/signup/?code=cookiecutter> or download and host it yourself.
-The system is set up with reasonable defaults, including 404 logging and integration with the WSGI application.
+## Special Thanks!
 
-You must set the DSN url in production.
+##### [Django Cookiecutter](https://github.com/cookiecutter/cookiecutter-django)
 
-## Deployment
+##### [Keen Themes Team](https://keenthemes.com/): [Template Oswald](https://keenthemes.com/products/oswald-html-free)
 
-The following details how to deploy this application.
+    Thank you to KeenThemes for granting us a custom license to use their amazing Template Oswald for Django-Awesome UI
 
-### Docker
+    KeenThemes HTML/CSS/JS components are allowed for use only within the Django-Awesome product
+    and restricted to be used in a resealable HTML template that can compete with KeenThemes products anyhow.
 
-See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
-
-### Custom Bootstrap Compilation
-
-The generated CSS is set up with automatic Bootstrap recompilation with variables of your choice.
-Bootstrap v5 is installed using npm and customised by tweaking your variables in `static/sass/custom_bootstrap_vars`.
-
-You can find a list of available variables [in the bootstrap source](https://github.com/twbs/bootstrap/blob/v5.1.3/scss/_variables.scss), or get explanations on them in the [Bootstrap docs](https://getbootstrap.com/docs/5.1/customize/sass/).
-
-Bootstrap's javascript as well as its dependencies are concatenated into a single file: `static/js/vendors.js`.
+    The Django-Awesome UI (HTML, CSS and JS components) based on this theme is allowed for use only within the Django-Awesome product
+    and therefore cannot be used in derivative works/products without an explicit grant from the Riso Tech Team.
