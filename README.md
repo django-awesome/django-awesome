@@ -76,6 +76,7 @@ _A short list of Python packages that implement support project._
 ### Frontend
 
 - [x] Custom static build using Gulp
+- [x] Apply [Oswald](https://keenthemes.com/products/oswald-html-free) - Free HTML template from Keen Themes
 
 ### Other
 
