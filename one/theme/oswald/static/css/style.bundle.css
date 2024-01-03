@@ -99438,13 +99438,13 @@ body {
     border-bottom: var(--bs-app-header-primary-base-border-bottom);
   }
   [data-kt-app-header-primary-enabled='true'] {
-    --bs-app-header-primary-height: 130px;
+    --bs-app-header-primary-height: 60px;
   }
   [data-kt-app-header-primary-enabled='true'][data-kt-app-header-sticky='on'] {
-    --bs-app-header-primary-height: 80px;
+    --bs-app-header-primary-height: 70px;
   }
   [data-kt-app-header-primary-enabled='true'][data-kt-app-header-minimize='on'] {
-    --bs-app-header-primary-height: 70px;
+    --bs-app-header-primary-height: 60px;
   }
   [data-kt-app-header-primary-enabled='true'][data-kt-app-header-sticky='on'][data-kt-app-header-primary-sticky-hide='true'] {
     --bs-app-header-primary-height: 0;

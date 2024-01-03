@@ -314,9 +314,7 @@ one/media/
 .ipython/
 project.css
 project.min.css
-vendors.bundle.css
-vendors.bundle.min.css
-vendors.bundle.js
+vendors.js
 *.min.js
 *.min.js.map
 .env
