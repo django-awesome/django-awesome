@@ -60,8 +60,8 @@ WSGI_APPLICATION = "config.wsgi.application"
 # APPS
 # ------------------------------------------------------------------------------
 DJANGO_APPS = [
-    "one.theme.oswald",
-    "one.theme.oswald.allauth_ui",
+    "themes.oswald",
+    "themes.oswald.allauth_ui",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
