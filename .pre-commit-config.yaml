@@ -1,4 +1,4 @@
-exclude: '^docs/|/migrations/|/vendors/|/media/|/images/|/templates/|devcontainer.json'
+exclude: '^docs/|/migrations/|/vendors/|/media/|/images/|/templates/|/plugins/|devcontainer.json'
 default_stages: [commit]
 
 default_language_version:
