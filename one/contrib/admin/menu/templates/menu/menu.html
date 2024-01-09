@@ -1,0 +1,14 @@
+{% load i18n static admin_menu_tags %}
+{% if menu.children %}
+  {% if has_bookmark_item %}
+    {% if bookmark %}
+      {% include "bookmark/remove_bookmark_form.html" %}
+    {% else %}
+      {% include "bookmark/add_bookmark_form.html" %}
+    {% endif %}
+  {% endif %}
+  
+  <ul id="grp-user-tools">
+    {% for item in menu.children %}{% admin_render_menu_item item index=forloop.counter %}{% endfor %}
+  </ul>
+{% endif %}

@@ -1,0 +1,30 @@
+{% load admin_menu_tags %}
+{% spaceless %}
+  {% if not item.is_empty %}
+    <li
+      class="grp-user-options-container grp-collapse grp-closed{% if index == 1 %} first{% endif %}{% if not item.enabled %} disabled{% endif %}{% if selected %} selected{% endif %}{% if item.css_classes %} {{ item.css_classes|join:' ' }}{% endif %}">
+      <a {% if item.description %}title="{{ item.description }}"{% endif %} {% if item.accesskey %}
+         accesskey="{{ item.accesskey }}"{% endif %}
+         class="user-options-handler grp-collapse-handler{% if item.children and item.enabled %} has-icon{% endif %}"
+        {% if item.url and item.enabled %}
+          {% if item.url == "#" %}
+         href="javascript://"
+          {% else %}
+         href="{{ item.url }}"
+          {% endif %}
+        {% else %}
+         href="#"
+        {% endif %}
+      >
+        {{ item.title|capfirst }}
+      </a>
+      {% if item.children and item.enabled %}
+        <ul class="grp-user-options">
+          {% for child_item in item.children %}
+            {% admin_render_menu_item child_item template="menu/sub-item.html" %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </li>
+  {% endif %}
+{% endspaceless %}

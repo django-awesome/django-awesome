@@ -1,0 +1,8 @@
+{% load admin_menu_tags %}
+{% spaceless %}
+  {% if not item.is_empty %}
+    <li>
+      <a href="{% if item.url and item.enabled %}{{ item.url }}{% else %}#{% endif %}">+ {{ item.title|capfirst }}</a>
+    </li>
+  {% endif %}
+{% endspaceless %}
