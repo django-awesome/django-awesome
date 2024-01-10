@@ -111,7 +111,7 @@ class AppListElementMixin:
         Returns the admin change url.
         """
         app_label = model._meta.app_label
-        return reverse("%s:app_list" % admin.site.name, args=(app_label,))
+        return reverse(f"{admin.site.name}:app_list", args=(app_label,))
 
     def _get_admin_change_url(self, model, context):
         """
