@@ -13,7 +13,7 @@ class Bookmark(Model):
     user = ForeignKey(User, verbose_name=_("Belong to user"), on_delete=CASCADE)
     url = CharField(_("Bookmark url"), max_length=255)
     title = CharField(_("Bookmark title"), max_length=255)
-    description = CharField(_("Bookmark description"), max_length=255, blank=True, null=True)
+    description = CharField(_("Bookmark description"), max_length=255, blank=True, default="")
     icon = TextField(_("Bookmark icon"), blank=True, default="")
 
     class Meta:
