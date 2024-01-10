@@ -1,0 +1,21 @@
+{% load i18n %}
+{% url 'admin-menu-add-bookmark' as form_url %}
+
+
+{% if form_url %}
+  <form id="bookmark-form" action="{{ form_url }}" method="POST">
+    <input type="hidden" name="next" value="{% firstof url request.get_full_path|urlencode %}"/>
+    <input type="hidden" name="url" value="{% firstof url request.get_full_path|urlencode %}"/>
+    <input type="hidden" name="title" value="{{ title }}"/>
+    <!--begin::Action-->
+    <button class="btn btn-sm btn-icon btn-icon-muted btn-active-icon-success" id="bookmark-button" type="submit"
+            data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="bottom" title="{% trans 'Bookmark this page' %}">
+      <i class="ki-duotone ki-add-files fs-1">
+        <span class="path1"></span>
+        <span class="path2"></span>
+        <span class="path3"></span>
+      </i>
+    </button>
+    <!--end::Action-->
+  </form>
+{% endif %}

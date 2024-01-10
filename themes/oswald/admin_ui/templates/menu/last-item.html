@@ -1,0 +1,14 @@
+{% load admin_menu_tags %}
+{% spaceless %}
+  {% if not item.is_empty %}
+    <!--begin:Menu item-->
+    <div class="menu-item p-0 m-0">
+      <!--begin:Menu link-->
+      <a href="{% if item.url and item.enabled %}{{ item.url }}{% else %}#{% endif %}" class="menu-link">
+        <span class="menu-title">{{ item.title|capfirst }}</span>
+      </a>
+      <!--end:Menu link-->
+    </div>
+    <!--end:Menu item-->
+  {% endif %}
+{% endspaceless %}

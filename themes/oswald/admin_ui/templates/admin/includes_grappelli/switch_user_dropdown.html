@@ -1,0 +1,40 @@
+{% load i18n %}
+{% spaceless %}
+  <div class="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="left-start"
+       data-kt-menu-offset="-15px, 0">
+    <a href="#" class="menu-link px-5">
+      <span class="menu-title">{% trans 'Using admin as' %}</span>
+      <span class="menu-arrow"></span>
+    </a>
+
+    <!--begin::Menu sub-->
+    <div class="menu-sub menu-sub-dropdown w-175px py-4" style="">
+
+      {% if request.session.original_user %}
+        <!--begin::Menu item-->
+        <div class="menu-item px-3">
+          <a href="{% url 'grp_switch_user' request.session.original_user.id %}?redirect={{ request.path }}"
+             class="menu-link px-5">
+            {{ request.session.original_user.username }}
+          </a>
+        </div>
+        <!--end::Menu item-->
+      {% endif %}
+
+      {% for user in object_list %}
+        {% if user.id != request.user.id %}
+          <!--begin::Menu item-->
+          <div class="menu-item px-3">
+            <a href="{% url 'grp_switch_user' user.id %}?redirect={{ request.path }}" class="menu-link px-5">
+              {% firstof user.get_short_name user.get_username %}
+            </a>
+          </div>
+          <!--end::Menu item-->
+        {% endif %}
+      {% endfor %}
+
+    </div>
+    <!--end::Menu sub-->
+  </div>
+
+{% endspaceless %}

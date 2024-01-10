@@ -1,0 +1,15 @@
+{% load admin_menu_tags %}
+{% spaceless %}
+  {% if not item.is_empty %}
+    <li>
+      <a href="{% if item.url and item.enabled %}{{ item.url }}{% else %}#{% endif %}">{{ item.title|capfirst }}</a>
+      {% if item.children and item.enabled %}
+        <ul>
+          {% for child_item in item.children %}
+            {% admin_render_menu_item child_item template="menu/last-item.html" %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </li>
+  {% endif %}
+{% endspaceless %}

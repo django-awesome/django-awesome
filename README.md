@@ -17,6 +17,12 @@ License: MIT
 
 _For a complete listing of all improvements, see [Django Awesome](https://django-awesome.github.io/)_
 
+#### Admin
+
+- [x] [django-grappelli](https://github.com/sehmaschine/django-grappelli) - A jazzy skin for the admin.
+- [x] Apply [Oswald](https://keenthemes.com/products/oswald-html-free) override Grappelli template
+- [x] Custom admin menu inherited from [django-admin-tools](https://github.com/django-admin-tools/django-admin-tools)
+
 #### APIs
 
 - [x] [drf-spectacular](https://github.com/tfranzel/drf-spectacular) - Sane and flexible OpenAPI 3 schema generation for Django REST framework.

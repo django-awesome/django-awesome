@@ -11,7 +11,7 @@ norecursedirs = ["node_modules"]
 # ==== Coverage ====
 [tool.coverage.run]
 include = ["one/**"]
-omit = ["*/migrations/*", "*/tests/*", "*/templates/*"]
+omit = ["*/migrations/*", "*/tests/*", "*/templates/*", "*/*_test/*"]
 plugins = ["django_coverage_plugin"]
 
 
