@@ -44,7 +44,7 @@ def admin_render_menu(context):
             "menu": menu,
             "has_bookmark_item": has_bookmark_item,
             "bookmark": bookmark,
-            "admin_url": reverse("%s:index" % admin.site.name),
+            "admin_url": reverse(f"{admin.site.name}:index"),
         }
     )
     return context
