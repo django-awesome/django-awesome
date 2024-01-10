@@ -14,7 +14,7 @@ class Bookmark(Model):
     url = CharField(_("Bookmark url"), max_length=255)
     title = CharField(_("Bookmark title"), max_length=255)
     description = CharField(_("Bookmark description"), max_length=255, blank=True, null=True)
-    icon = CharField(_("Bookmark icon"), max_length=2000, blank=True, null=True)
+    icon = TextField(_("Bookmark icon"), blank=True, default="")
 
     class Meta:
         verbose_name = _("Bookmark Menu")
