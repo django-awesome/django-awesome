@@ -1,0 +1,83 @@
+{% load admin_menu_tags i18n %}
+{% spaceless %}
+  {% if not item.is_empty %}
+    {% if item.bookmark %}
+      <!--begin:Col-->
+      <div class="col-lg-6 symbol py-1 mb-5">
+        <!--begin:Menu item-->
+        <div class="menu-item p-0 m-0">
+          <!--begin:Menu link-->
+          <a href="{{ child_item.url }}" class="menu-link">
+            <span class="menu-custom-icon d-flex flex-center flex-shrink-0 rounded w-40px h-40px me-3">
+              {% if child_item.icon %}
+                {{ child_item.icon|safe }}
+              {% else %}
+                <i class="ki-duotone ki-notepad-bookmark text-primary fs-1">
+                 <span class="path1"></span>
+                 <span class="path2"></span>
+                 <span class="path3"></span>
+                 <span class="path4"></span>
+                 <span class="path5"></span>
+                 <span class="path6"></span>
+                </i>
+                </span>
+              {% endif %}
+            <span class="d-flex flex-column">
+              <span class="d-flex align-items-center fs-6 fw-semibold text-gray-800">
+                {{ child_item.title|title }}
+              </span>
+              <span class="fs-7 fw-semibold text-muted">{{ child_item.description|default_if_none:"" }}</span>
+            </span>
+          </a>
+          <!--end:Menu link-->
+        </div>
+        <!--end:Menu item-->
+
+        <!--begin::Edit-->
+        <div class="position-absolute translate-middle start-100 top-25 ms-n3 mt-n3">
+          <a href="{{ child_item.change_url }}">
+            <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow-sm"
+                   data-bs-toggle="tooltip" title="{% trans 'Edit Bookmark' %}">
+              <i class="ki-duotone ki-pencil fs-7">
+                <span class="path1"></span>
+                <span class="path2"></span>
+              </i>
+            </label>
+          </a>
+        </div>
+        <!--end::Edit-->
+
+        <!--begin::Remove-->
+        <div class="position-absolute translate-middle start-100 top-100 ms-n3 mt-n3">
+          <a href="{{ child_item.delete_url }}">
+            <span class="btn btn-icon btn-circle btn-active-color-warning w-25px h-25px bg-body shadow-sm"
+                  data-bs-toggle="tooltip" title="{% trans 'Remove Bookmark' %}">
+              <i class="ki-duotone ki-cross fs-2">
+                <span class="path1"></span>
+                <span class="path2"></span>
+              </i>
+            </span>
+          </a>
+        </div>
+        <!--end::Remove-->
+
+      </div>
+      <!--end:Col-->
+    {% else %}
+      <!--begin:Col-->
+      <div class="col-lg-4 mb-3">
+        <!--begin:Heading-->
+        <h4 class="fs-6 fs-lg-4 text-gray-800 fw-bold mt-3 mb-3 ms-4">
+          <a href="{% if item.url and item.enabled %}{{ item.url }}{% else %}#{% endif %}">{{ item.title|capfirst }}</a>
+        </h4>
+        <!--end:Heading-->
+        {% if item.children and item.enabled %}
+          {% for child_item in item.children %}
+            {% admin_render_menu_item child_item template="menu/last-item.html" %}
+          {% endfor %}
+        {% endif %}
+      </div>
+      <!--end:Col-->
+    {% endif %}
+  {% endif %}
+{% endspaceless %}

@@ -99537,6 +99537,9 @@ body {
   [data-kt-app-header-secondary-enabled='true'] {
     --bs-app-header-secondary-height: 84px;
   }
+  [data-kt-app-header-secondary-enabled='true'][data-kt-app-header-admin='on'] {
+    --bs-app-header-secondary-height: 42px;
+  }
   [data-kt-app-header-secondary-enabled='true'][data-kt-app-header-sticky='on'] {
     --bs-app-header-secondary-height: 70px;
   }

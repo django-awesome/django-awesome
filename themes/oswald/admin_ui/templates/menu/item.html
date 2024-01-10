@@ -1,0 +1,57 @@
+{% load admin_menu_tags static i18n %}
+{% spaceless %}
+  {% if not item.is_empty %}
+    {#    {% if index == 1 %} first{% endif %}#}
+    {#    {% if not item.enabled %} disabled{% endif %}#}
+    {#    {% if selected %} selected{% endif %}#}
+    {#    {% if item.css_classes %} {{ item.css_classes|join:' ' }}{% endif %}#}
+    {#    {% if item.description %}title="{{ item.description }}"{% endif %}#}
+    {#    {% if item.children and item.enabled %} has-icon{% endif %}#}
+    {#    {% if item.accesskey %} accesskey="{{ item.accesskey }}"{% endif %}#}
+
+    <!--begin:Menu item-->
+    <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start"
+         class="menu-item menu-lg-down-accordion me-0 me-lg-2">
+      <!--begin:Menu link-->
+      <span class="menu-link">
+          <span class="menu-title">{{ item.title|capfirst }}</span>
+          <span class="menu-arrow d-lg-none"></span>
+        </span>
+      <!--end:Menu link-->
+      <!--begin:Menu sub-->
+      <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown p-0 w-100 w-lg-900px w-xxl-950px">
+        <!--begin:{{ item.title|capfirst }} menu-->
+        <div class="menu-state-bg menu-extended overflow-hidden overflow-lg-visible py-6" data-kt-menu-dismiss="true">
+          <!--begin:Row-->
+          <div class="row px-5">
+            <!--begin:Col-->
+            <div class="col-lg-7">
+
+              <!--begin:Row-->
+              <div class="row">
+                {% if item.children and item.enabled %}
+                  {% for child_item in item.children %}
+                    {% admin_render_menu_item child_item template="menu/sub-item.html" %}
+                  {% endfor %}
+                {% endif %}
+              </div>
+              <!--end:Row-->
+            </div>
+            <!--end:Col-->
+
+            <!--begin:Col-->
+            <div class="col-lg-5 mb-3 py-lg-3 pe-lg-8 d-flex align-items-center">
+              <img src="{% static 'media/stock/900x600/45.jpg' %}" class="rounded mw-100" alt=""/>
+            </div>
+            <!--end:Col-->
+          </div>
+          <!--end:Row-->
+        </div>
+        <!--end:{{ item.title|capfirst }} menu-->
+      </div>
+      <!--end:Menu sub-->
+    </div>
+    <!--end:Menu item-->
+
+  {% endif %}
+{% endspaceless %}

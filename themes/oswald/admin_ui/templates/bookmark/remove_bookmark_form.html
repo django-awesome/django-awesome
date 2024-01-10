@@ -1,0 +1,17 @@
+{% load i18n %}
+{% url 'admin-menu-remove-bookmark' bookmark.id as form_url %}
+
+{% if form_url %}
+<form id="bookmark-form" action="{{ form_url }}" method="POST">
+    <input type="hidden" name="next" value="{% firstof url request.get_full_path|urlencode %}" />
+    <!--begin::Action-->
+    <button class="btn btn-sm btn-icon btn-icon-muted btn-active-icon-success" id="bookmark-button" type="submit"
+            data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="bottom" title="{% trans 'Remove Bookmark' %}">
+      <i class="ki-duotone ki-delete-files fs-1">
+        <span class="path1"></span>
+        <span class="path2"></span>
+      </i>
+    </button>
+    <!--end::Action-->
+</form>
+{% endif %}

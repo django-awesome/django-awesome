@@ -1,4 +1,4 @@
-{% load static i18n %}
+{% load static i18n grp_tags %}
 
 {% if user.is_authenticated %}
   <!--begin::User menu-->
@@ -65,10 +65,6 @@
       </div>
       <!--end::Change Password item-->
 
-      <!--begin::Last separator-->
-      <div class="separator my-2"></div>
-      <!--end::Last separator-->
-      {% include 'partials/theme-mode/menu-item.html' %}
       {% if request.user.is_staff %}
         <!--begin::Admin item-->
         <div class="menu-item px-5">
@@ -78,6 +74,11 @@
         </div>
         <!--end::Admin item-->
       {% endif %}
+
+      {% include 'partials/theme-mode/menu-item.html' %}
+
+      {% switch_user_dropdown %}
+
       <!--begin::Sign Out-->
       <div class="menu-item px-5">
         <a href="{% url 'account_logout' %}" class="menu-link px-5">
@@ -91,4 +92,4 @@
     <!--end::Menu wrapper-->
   </div>
   <!--end::User menu-->
-{% endif %} 
+{% endif %}
