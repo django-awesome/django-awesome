@@ -1,0 +1,99 @@
+{% load grp_tags i18n %}
+{% spaceless %}
+  <div class="card card-bordered {% if not forloop.last %}mb-5{% endif %}">
+    <!--begin::Header-->
+    <div
+      class="card-header{% if 'grp-collapse' in fieldset.classes %} collapsible cursor-pointer rotate{% endif %}{% if 'grp-closed' in fieldset.classes %} collapsed{% endif %}"
+      {% if 'grp-collapse' in fieldset.classes %} data-bs-toggle="collapse"
+      data-bs-target="#kt_{{ fieldset.name|slugify }}_card_collapsible"{% endif %}>
+      <!--begin::Title-->
+      <h3 class="card-title align-items-start flex-column grp-collapse-handler">
+        <span class="card-label fw-bold text-gray-800">
+          {% if fieldset.name %}{{ fieldset.name }}{% else %}{% trans 'General' %}{% endif %}
+        </span>
+        <span class="text-gray-400 mt-1 fw-semibold fs-6">
+          {% if fieldset.description %}{{ fieldset.description|safe }}{% endif %}
+        </span>
+      </h3>
+      <!--end::Title-->
+      <!--begin::Toolbar-->
+      {% if 'grp-collapse' in fieldset.classes %}
+        <div class="card-toolbar rotate-180"><i class="ki-duotone ki-down fs-1"></i></div>
+      {% endif %}
+      <!--end::Toolbar-->
+    </div>
+    <!--end::Header-->
+
+    <!--begin::Body-->
+    <div id="kt_{{ fieldset.name|slugify }}_card_collapsible"
+         class="{% if 'grp-collapse' in fieldset.classes %}collapse{% endif %} {% if 'grp-open' in fieldset.classes %}show{% elif 'grp-closed' in fieldset.classes %}active{% endif %}">
+      <!--begin::Body container-->
+      <div class="card-body">
+        {% for line in fieldset %}
+          <div class="form-row grp-row grp-cells-{{ line.fields|length }}{% if not line.fields|length == 1 %} grp-cells
+            {% else %}{% if line.errors %} grp-errors{% endif %}{% endif %}{% if not line.has_visible_field %} grp-row-hidden{% endif %}{% for field in line %} {{ field.field.name }}{% endfor %}">
+            {% for field in line %}
+              <!--begin::Input group-->
+              <div
+                class="row mb-6 field-box {% if field.field.errors %} grp-errors{% endif %}{% if line.fields|length == 1 %} l-2c-fluid l-d-4{% else %} grp-cell l-2c-fluid l-d-4 {{ field.field.name }}{% endif %}">
+                <!--begin::Label-->
+                <label class="col-lg-3 col-form-label fw-semibold fs-6">{{ field.label_tag|prettylabel }}</label>
+                <!--end::Label-->
+
+                <!--begin::Col-->
+                <div class="col-lg-9 mb-5">
+                  {% if field.is_readonly %}
+                    <label class="form-check-label fw-semibold pt-2 fs-6">{{ field.contents }}</label>
+                  {% else %}
+                    <div class="form-group row">
+                      <div class="col-md-10">
+
+                        {{ field.field }}
+
+                        {% if field.field.errors %}
+                          <script>
+                            $(document).ready(function () {
+                              $('#id_{{ field.field.name }}').addClass("is-invalid")
+                            });
+                          </script>
+                        {% endif %}
+                      
+                        {% if line.fields|length == 1 %}
+                          <!--begin::Line Errors-->
+                          {{ line.errors }}
+                          <!--end::Line Errors-->
+
+                        {% endif %}
+
+                        {% if not line.fields|length == 1 and not field.is_readonly %}
+                          <!--begin::Field Errors-->
+                          {{ field.field.errors }}
+                          <!--end::Field Errors-->
+                        {% endif %}
+                      </div>
+                      <div id="kt_field_{{ field.field.name }}_actions" class="col-md-2">
+
+                      </div>
+                    </div>
+
+                    {% if field.field.help_text %}
+                      <!--begin::Hint-->
+                      <div class="input-group form-text">
+                        {{ field.field.help_text|safe }}
+                      </div>
+                      <!--end::Hint-->
+                    {% endif %}
+                  {% endif %}
+                </div>
+                <!--end::Col-->
+              </div>
+              <!--end::Input group-->
+            {% endfor %}
+          </div>
+        {% endfor %}
+      </div>
+      <!--end::Body container-->
+    </div>
+    <!--end::Body-->
+  </div>
+{% endspaceless %}

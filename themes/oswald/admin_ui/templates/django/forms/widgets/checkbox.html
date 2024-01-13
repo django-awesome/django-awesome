@@ -1,0 +1,5 @@
+<div class="form-check form-check-custom">
+  <input type="{{ widget.type }}" name="{{ widget.name }}"{% if widget.value != None %}
+         value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}
+         class="form-check-input {% if "class" in widget.attrs %}{{ widget.attrs.class }}{% endif %}">
+</div>

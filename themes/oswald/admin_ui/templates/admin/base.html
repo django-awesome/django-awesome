@@ -5,8 +5,6 @@
 
 {% block stylesheets %}
   <link href="{% static "grappelli/stylesheets/keep-screen.css" %}" rel="stylesheet" type="text/css" media="all"/>
-  <link href="{% static "grappelli/stylesheets/mueller/grid/output.css" %}" rel="stylesheet" type="text/css"
-        media="screen"/>
   {% if LANGUAGE_BIDI %}{% endif %}
   {{ block.super }}
 {% endblock stylesheets %}
@@ -81,9 +79,9 @@
 
       {% block header %}
         <!--layout-partial:layout/partials/_header.html-->
-        <!--begin::Header-->
-        <header id="grp-header" class="app-header {% block header-class %}{% endblock header-class %}">
-          {% if not is_popup %}
+        {% if not is_popup %}
+          <!--begin::Header-->
+          <header id="grp-header" class="app-header {% block header-class %}{% endblock header-class %}">
             <!--begin::Header primary-->
             {% block navigation %}
               <div id="grp-navigation"
@@ -246,9 +244,9 @@
               </div>
             {% endblock context-navigation %}
             <!--end::Header secondary-->
-          {% endif %}
-        </header>
-        <!--end::Header-->
+          </header>
+          <!--end::Header-->
+        {% endif %}
       {% endblock header %}
 
       <!--begin::Wrapper-->

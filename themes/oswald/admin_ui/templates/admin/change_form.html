@@ -8,7 +8,6 @@
   <script type="text/javascript" src="{{ jsi18nurl|default:'../../../jsi18n/' }}"></script>
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function () {
-      grappelli.initDateAndTimePicker();
       $("#grp-content-container .grp-group").grp_collapsible_group();
       $("#grp-content-container .grp-collapse").grp_collapsible({
         on_init: function (elem, options) {
@@ -70,6 +69,8 @@
         $("a#grp-close-all").removeClass("d-none");
         $("#grp-content .grp-collapse-handler").each(function () {
           $(this).parent(".grp-collapse").removeClass("grp-closed").addClass("grp-open");
+          $(this).parent().removeClass("collapsed").addClass("active");
+          $(this).parent().parent().find(".collapse").addClass("show");
         });
       });
       $("a#grp-close-all").on("click", function () {
@@ -77,6 +78,8 @@
         $("a#grp-open-all").removeClass("d-none");
         $("#grp-content .grp-collapse-handler").each(function () {
           $(this).parent(".grp-collapse").removeClass("grp-open").addClass("grp-closed");
+          $(this).parent().removeClass("active").addClass("collapsed");
+          $(this).parent().parent().find(".collapse").removeClass("show");
         });
       });
       // HACK: get rid of currently/change with URL–fields. F**K!!!
@@ -251,23 +254,27 @@
     {% block form_top %}{% endblock form_top %}
     {% if is_popup %}<input type="hidden" name="_popup" value="1"/>{% endif %}
 
+    {% block field_sets %}
+      {% for fieldset in adminform %}
+        {% include "admin/includes/fieldset.html" with forloop=forloop %}
+      {% endfor %}
+    {% endblock %}
+
     <div class="keep-grp">
-      {% block field_sets %}
-        {% for fieldset in adminform %}
-          {% include "admin/includes/fieldset.html" %}
-        {% endfor %}
-      {% endblock %}
+      {% block after_field_sets %}{% endblock after_field_sets %}
+    </div>
 
-      {% block after_field_sets %}{% endblock %}
-
+    <div class="keep-grp">
       <!-- Inlines -->
       {% block inline_field_sets %}
         {% for inline_admin_formset in inline_admin_formsets %}
           {% include inline_admin_formset.opts.template %}
         {% endfor %}
-      {% endblock %}
+      {% endblock inline_field_sets %}
+    </div>
 
-      {% block after_related_objects %}{% endblock %}
+    <div class="keep-grp">
+      {% block after_related_objects %}{% endblock after_related_objects %}
     </div>
 
     <div class="app-footer keep-grp">
@@ -287,3 +294,4 @@
   </div>
   <!--end::Footer-->
 {% endblock footer %}
+
