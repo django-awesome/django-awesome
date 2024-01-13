@@ -1,0 +1,28 @@
+<input type="{{ widget.type }}" name="{{ widget.name }}"{% if widget.value != None %}
+       value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}
+       class="form-control {% if "class" in widget.attrs %}{{ widget.attrs.class }}{% endif %}"
+>
+
+{% if link_label %}
+  <!--begin::Hint-->
+  <a href="{% if link_url %}{{ link_url }}{% else %}#{% endif %}"
+     class="btn btn-link btn-color-gray-500 btn-active-color-primary">{{ link_label|title }}</a>
+  <!--end::Hint-->
+{% endif %}
+
+<div class="grp-tools grp-related-widget-tools"
+     data-kt-swapper="true"
+     data-kt-swapper-mode="{default: 'append'}"
+     data-kt-swapper-parent="{default: '#kt_field_{{ widget.name }}_actions'}">
+  {% if related_url %}
+    <a href="{{ related_url }}" class="btn btn-icon related-lookup" id="lookup_id_{{ widget.name }}"
+       data-bs-toggle="tooltip" title="{{ link_title }}">
+      <i class="ki-duotone ki-magnifier fs-1">
+        <span class="path1"></span>
+        <span class="path2"></span>
+      </i>
+    </a>
+  {% endif %}
+
+</div>
+

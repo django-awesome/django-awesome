@@ -1,0 +1,23 @@
+{% load grp_tags %}
+<input type="{{ widget.type }}" name="{{ widget.name }}" {% include "django/forms/widgets/attrs.html" %}
+       {% if "class" in widget.attrs %} class="form-control {{ widget.attrs.class }}"{% endif %}
+       {% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}>
+<script>
+  $(document).ready(function () {
+    $('input[name="{{ widget.name }}"]').daterangepicker(
+      {
+        timePicker: true,
+        singleDatePicker: true,
+        timePicker24Hour: true,
+        timePickerIncrement: 1,
+        timePickerSeconds: true,
+        locale: {
+          format: "{% get_time_format %}".replace("%H", "HH").replace("%M", "mm").replace("%S", "ss")
+        }
+      }
+    ).on('show.daterangepicker', function (ev, picker) {
+      picker.container.find(".calendar-table").hide();
+      picker.container.find(".ranges").remove();
+    });
+  });
+</script>

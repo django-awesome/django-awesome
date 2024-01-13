@@ -1,0 +1,15 @@
+<!--begin::Row-->
+<div class="row">
+  <!--begin::Date-->
+  <div class="col-lg-6">
+    {% with widget=widget.subwidgets.0 %}{% include widget.template_name %}{% endwith %}<br>
+  </div>
+  <!--end::Date-->
+
+  <!--begin::Time-->
+  <div class="col-lg-6">
+    {% with widget=widget.subwidgets.1 %}{% include widget.template_name %}{% endwith %}
+  </div>
+  <!--end::Time-->
+</div>
+<!--end::Row-->

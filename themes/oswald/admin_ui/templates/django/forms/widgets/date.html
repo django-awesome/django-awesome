@@ -1,0 +1,15 @@
+{% load grp_tags %}
+<input type="{{ widget.type }}" name="{{ widget.name }}" {% include "django/forms/widgets/attrs.html" %}
+       class="form-control {% if "class" in widget.attrs %}{{ widget.attrs.class }}{% endif %}"
+  {% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}>
+<script>
+  $(document).ready(function () {
+    $('input[name="{{ widget.name }}"]').daterangepicker({
+      singleDatePicker: true,
+      locale: {
+        format: "{% get_date_format %}".replace("%Y", "YYYY").replace("%m", "MM").replace("%d", "DD"),
+      },
+      {% if widget.value != None %}startDate: "{{ widget.value|stringformat:'s' }}",{% endif %}
+    });
+  });
+</script>
