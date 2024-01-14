@@ -63,7 +63,6 @@ DJANGO_APPS = [
     "themes.oswald",
     "themes.oswald.allauth_ui",
     "themes.oswald.admin_ui",
-    "one.contrib.admin.menu",
     "one.libraries.grappelli",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -90,6 +89,8 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "one.users",
+    "one.contrib.admin.menu",
+    "one.contrib.admin.dashboard",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
