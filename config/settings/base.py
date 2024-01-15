@@ -193,6 +193,7 @@ TEMPLATES = [
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
                 "one.libraries.allauth.context_processors.allauth_settings",
+                "one.contrib.admin.dashboard.context_processors.dashboard_settings",
             ],
             "loaders": [
                 "django.template.loaders.app_directories.Loader",
@@ -343,5 +344,9 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "1.0.0",
     "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
 }
+
+# Dashboard Settings
+# ------------------------------------------------------------------------------
+DASHBOARD_ENABLE = True
 # Your stuff...
 # ------------------------------------------------------------------------------
