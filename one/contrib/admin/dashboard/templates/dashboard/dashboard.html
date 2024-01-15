@@ -1,0 +1,6 @@
+{% load admin_dashboard_tags %}
+
+{% for module in dashboard.registry %}
+  {% admin_render_dashboard_module module %}
+{% endfor %}
+
