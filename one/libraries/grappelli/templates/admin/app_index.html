@@ -1,6 +1,11 @@
 {% extends "admin/index.html" %}
 {% load i18n grp_tags %}
 
+{% if DASHBOARD_ENABLE %}
+  {% load admin_dashboard_tags %}
+{% endif %}
+
+
 {% block javascripts %}
     {{ block.super }}
 {% endblock %}
@@ -17,6 +22,9 @@
 {% endif %}
 
 {% block content %}
+   {% if DASHBOARD_ENABLE %}
+      {% admin_render_dashboard %}
+    {% else %}
    <div class="g-d-c">
         <div class="g-d-12" id="apps_init">
             {% for app in app_list %}
@@ -38,4 +46,5 @@
             {% endfor %}
         </div>
     </div>
+  {% endif %}
 {% endblock %}

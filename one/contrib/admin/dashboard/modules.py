@@ -64,6 +64,9 @@ class BaseModule:
     show_title = True
 
     def __init__(self, title=None, **kwargs):
+        if self.template is None:
+            raise NotImplementedError("You must specify a template for the module %s" % self.__class__.__name__)
+
         self.id = self.id or self.__class__.__name__.lower()
         if title is not None:
             self.title = title

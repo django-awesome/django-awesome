@@ -1,7 +1,12 @@
 {% extends "admin/base_site.html" %}
 
 <!-- LOADING -->
-{% load i18n grp_tags log %}
+{% load i18n %}
+{% if DASHBOARD_ENABLE %}
+  {% load admin_dashboard_tags %}
+  {% else %}
+  {% load log %}
+{% endif %}
 
 <!-- JAVASCRIPTS -->
 {% block javascripts %}
@@ -26,6 +31,9 @@
 
 <!-- CONTENT -->
 {% block content %}
+   {% if DASHBOARD_ENABLE %}
+      {% admin_render_dashboard %}
+    {% else %}
     <div class="g-d-c">
         <div class="g-d-12 g-d-f">
             {% for app in app_list %}
@@ -90,4 +98,5 @@
             </div>
         </div>
     </div>
+    {% endif %}
 {% endblock %}

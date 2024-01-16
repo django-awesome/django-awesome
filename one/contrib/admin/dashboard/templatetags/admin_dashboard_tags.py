@@ -19,12 +19,13 @@ register = template.Library()
 def admin_render_dashboard(context):
     dashboard_code = dashboard.get_code(context)
 
-    dashboard_preferences, _ = Preference.objects.get_or_create(user=context["request"].user, code=dashboard_code)
+    preference, _ = Preference.objects.get_or_create(user=context["request"].user, code=dashboard_code)
 
     context.update(
         {
             "dashboard": dashboard,
-            "dashboard_preferences": dashboard_preferences,
+            "dashboard_code": dashboard_code,
+            "preferences": sorted(preference.data, key=lambda x: preference.data[x].get("order", 0)),
         }
     )
 
@@ -43,3 +44,8 @@ def admin_render_dashboard_module(context, module):
     )
 
     return context
+
+
+@register.filter
+def get_module_by_id(registry, key):
+    return registry.get(key)

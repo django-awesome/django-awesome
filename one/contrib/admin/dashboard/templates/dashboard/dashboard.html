@@ -1,6 +1,6 @@
 {% load admin_dashboard_tags %}
 
-{% for module in dashboard.registry %}
-  {% admin_render_dashboard_module module %}
-{% endfor %}
 
+{% for item in preferences %}
+  {% admin_render_dashboard_module dashboard.registry|get_module_by_id:item %}
+{% endfor %}

@@ -5,7 +5,7 @@ from django.utils.module_loading import import_string
 
 
 class Dashboard:
-    registry = []
+    registry = {}
     columns = 2
 
     class Media:
@@ -26,7 +26,8 @@ class Dashboard:
             raise ValueError(f"{klass} is not an instance of Dashboard Module")
         if klass in self.registry:
             raise ValueError(f"{klass} is already registered in Dashboard")
-        self.registry.append(klass())
+        klass_instance = klass()
+        self.registry[klass_instance.id] = klass_instance
 
 
 class DefaultDashboard(LazyObject):
