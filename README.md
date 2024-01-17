@@ -2,9 +2,9 @@
 
 The curated list of awesome libraries incorporated into a project, ready to form the core for projects of any scale and can be deployed to production right after pulling the code.
 
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/riso-tech/django-awesome/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/riso-tech/django-awesome/?branch=main)
-[![Code Coverage](https://scrutinizer-ci.com/g/riso-tech/django-awesome/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/riso-tech/django-awesome/?branch=main)
-[![Build Status](https://scrutinizer-ci.com/g/riso-tech/django-awesome/badges/build.png?b=main)](https://scrutinizer-ci.com/g/riso-tech/django-awesome/build-status/main)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/django-awesome/django-awesome/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/django-awesome/django-awesome/?branch=main)
+[![Code Coverage](https://scrutinizer-ci.com/g/django-awesome/django-awesome/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/django-awesome/django-awesome/?branch=main)
+[![Build Status](https://scrutinizer-ci.com/g/django-awesome/django-awesome/badges/build.png?b=main)](https://scrutinizer-ci.com/g/django-awesome/django-awesome/build-status/main)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/riso-tech/django-awesome/badges/code-intelligence.svg?b=main)](https://scrutinizer-ci.com/code-intelligence)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/django-awesome/django-awesome/main.svg)](https://results.pre-commit.ci/latest/github/django-awesome/django-awesome/main)
 
