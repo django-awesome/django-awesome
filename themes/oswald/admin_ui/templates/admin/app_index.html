@@ -1,5 +1,10 @@
 {% extends "admin/index.html" %}
-{% load i18n grp_tags %}
+{% load i18n %}
+
+{% if DASHBOARD_ENABLE %}
+  {% load admin_dashboard_tags %}
+{% endif %}
+
 
 {% block breadcrumbs %}
   <ul class="breadcrumb breadcrumb-separatorless fw-semibold">
@@ -36,68 +41,72 @@
 {% block content %}
   <!--begin::Row-->
   <div class="row g-5 g-xl-10" id="apps_init">
-    {% for app in app_list %}
-      <!--begin::Col-->
-      <div class="col-xl-4 {% if False %}grp-module{% endif %}" id="app_{{ app.name|lower }}">
-        <!--begin::{{ app.name|upper }}-->
-        <div class="card card-flush {% if not forloop.first %}mt-5{% endif %}">
-          <!--begin::Header-->
-          <div class="card-header min-h-50px">
-            <!--begin::Title-->
-            <h3 class="card-title align-items-start flex-column m-0 h-50px">
+    {% if DASHBOARD_ENABLE %}
+      {% admin_render_dashboard %}
+    {% else %}
+      {% for app in app_list %}
+        <!--begin::Col-->
+        <div class="col-xl-4 {% if False %}grp-module{% endif %}" id="app_{{ app.name|lower }}">
+          <!--begin::{{ app.name|upper }}-->
+          <div class="card card-flush {% if not forloop.first %}mt-5{% endif %}">
+            <!--begin::Header-->
+            <div class="card-header min-h-50px">
+              <!--begin::Title-->
+              <h3 class="card-title align-items-start flex-column m-0 h-50px">
               <span class="card-label fw-bold text-gray-800">
                   {% trans app.name %}
               </span>
-            </h3>
-            <!--end::Title-->
-          </div>
-          <!--end::Header-->
-
-          <!--begin::Body-->
-          <div class="card-body pt-0 pb-0">
-            <!--begin::Table container-->
-            <div class="table-responsive">
-              <!--begin::Table-->
-              <table class="table table-row-dashed align-middle gs-0 gy-4 my-0">
-                <!--begin::Table body-->
-                <tbody>
-                {% for model in app.models %}
-                  <tr class="grp-row" id="model-{{ model.object_name|lower }}">
-                    <td>
-                      {% if model.admin_url %}
-                        <a href="{{ model.admin_url }}" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">
-                          {{ model.name }}
-                        </a>
-                      {% else %}
-                        <span class="text-gray-400 fw-semibold d-block fs-7">{{ model.name }}</span>
-                      {% endif %}
-                    </td>
-                    <td class="text-end">
-                      {% if model.add_url %}
-                        <a class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-25px h-25px"
-                           href="{{ model.add_url }}">
-                          <i class="ki-duotone ki-plus fs-2 text-gray-500"></i>
-                        </a>
-                      {% endif %}
-                    </td>
-                  </tr>
-                {% endfor %}
-                </tbody>
-                <!--end::Table body-->
-              </table>
-              <!--end::Table-->
+              </h3>
+              <!--end::Title-->
             </div>
-            <!--end::Table container-->
-          </div>
-          <!--end::Body-->
+            <!--end::Header-->
 
+            <!--begin::Body-->
+            <div class="card-body pt-0 pb-0">
+              <!--begin::Table container-->
+              <div class="table-responsive">
+                <!--begin::Table-->
+                <table class="table table-row-dashed align-middle gs-0 gy-4 my-0">
+                  <!--begin::Table body-->
+                  <tbody>
+                  {% for model in app.models %}
+                    <tr class="grp-row" id="model-{{ model.object_name|lower }}">
+                      <td>
+                        {% if model.admin_url %}
+                          <a href="{{ model.admin_url }}" class="text-gray-800 fw-bold text-hover-primary mb-1 fs-6">
+                            {{ model.name }}
+                          </a>
+                        {% else %}
+                          <span class="text-gray-400 fw-semibold d-block fs-7">{{ model.name }}</span>
+                        {% endif %}
+                      </td>
+                      <td class="text-end">
+                        {% if model.add_url %}
+                          <a class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary w-25px h-25px"
+                             href="{{ model.add_url }}">
+                            <i class="ki-duotone ki-plus fs-2 text-gray-500"></i>
+                          </a>
+                        {% endif %}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                  <!--end::Table body-->
+                </table>
+                <!--end::Table-->
+              </div>
+              <!--end::Table container-->
+            </div>
+            <!--end::Body-->
+
+          </div>
+          <!--end::{{ app.name|upper }}-->
         </div>
-        <!--end::{{ app.name|upper }}-->
-      </div>
-      <!--end::Col-->
-    {% empty %}
-      <p>{% trans "You don´t have permission to edit anything." %}</p>
-    {% endfor %}
+        <!--end::Col-->
+      {% empty %}
+        <p>{% trans "You don´t have permission to edit anything." %}</p>
+      {% endfor %}
+    {% endif %}
   </div>
   <!--end::Row-->
 {% endblock content %}
