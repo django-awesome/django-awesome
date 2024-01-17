@@ -22,6 +22,7 @@ _For a complete listing of all improvements, see [Django Awesome](https://django
 - [x] [django-grappelli](https://github.com/sehmaschine/django-grappelli) - A jazzy skin for the admin.
 - [x] Apply [Oswald](https://keenthemes.com/products/oswald-html-free) override Grappelli template
 - [x] Custom admin menu inherited from [django-admin-tools](https://github.com/django-admin-tools/django-admin-tools)
+- [x] Custom admin dashboard for index, app index page, autodiscover dashboard from app
 
 #### APIs
 
