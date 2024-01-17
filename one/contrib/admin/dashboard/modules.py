@@ -68,7 +68,7 @@ class BaseModule:
             raise NotImplementedError("You must specify a template for the module %s" % class_name)
 
         if not self.title:
-            raise NotImplementedError("You must specify a title for the module %s" % class_name)
+            raise NotImplementedError(f"You must specify a title for the module {class_name}")
 
         for key in kwargs:
             if hasattr(self.__class__, key):
