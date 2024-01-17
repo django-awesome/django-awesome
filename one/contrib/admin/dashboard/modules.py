@@ -51,25 +51,24 @@
 class BaseModule:
     id = None
     template = None
-    title = ""
+    icon = None
+    title = None
     title_url = None
+    description = None
     css_classes = None
-    pre_content = None
-    post_content = None
+    custom_style = None
     children = None
-    enabled = True
-    draggable = True
-    collapsible = True
-    deletable = True
-    show_title = True
 
-    def __init__(self, title=None, **kwargs):
-        if self.template is None:
-            raise NotImplementedError("You must specify a template for the module %s" % self.__class__.__name__)
-
+    def __init__(self, **kwargs):
         self.id = self.id or self.__class__.__name__.lower()
-        if title is not None:
-            self.title = title
+
+        class_name = self.__class__.__name__
+
+        if not self.template:
+            raise NotImplementedError("You must specify a template for the module %s" % class_name)
+
+        if not self.title:
+            raise NotImplementedError("You must specify a title for the module %s" % class_name)
 
         for key in kwargs:
             if hasattr(self.__class__, key):
@@ -89,18 +88,14 @@ class BaseModule:
         """
         pass
 
-    def is_empty(self):
-        return self.pre_content is None and self.post_content is None and len(self.children) == 0
-
     def render_css_classes(self):
-        ret = ["dashboard-module"]
-        if not self.enabled:
-            ret.append("disabled")
-        if self.draggable:
-            ret.append("draggable")
-        if self.collapsible:
-            ret.append("collapsible")
-        if self.deletable:
-            ret.append("deletable")
-        ret += self.css_classes
+        ret = []
+        if self.css_classes:
+            ret += self.css_classes
         return " ".join(ret)
+
+    def render_custom_style(self):
+        ret = []
+        if self.custom_style:
+            ret += self.custom_style
+        return "; ".join(ret)

@@ -26,6 +26,7 @@ def admin_render_dashboard(context):
             "dashboard": dashboard,
             "dashboard_code": dashboard_code,
             "preferences": sorted(preference.data, key=lambda x: preference.data[x].get("order", 0)),
+            "preference_data": preference.data,
         }
     )
 
@@ -40,6 +41,21 @@ def admin_render_dashboard_module(context, module):
         {
             "template": module.template,
             "module": module,
+        }
+    )
+
+    return context
+
+
+@register.inclusion_tag("dashboard/drawer.html", takes_context=True)
+def admin_render_dashboard_drawer(context):
+    dashboard_code = dashboard.get_code(context)
+    preference, _ = Preference.objects.get_or_create(user=context["request"].user, code=dashboard_code)
+
+    context.update(
+        {
+            "dashboard": dashboard,
+            "preference_data": preference.data,
         }
     )
 

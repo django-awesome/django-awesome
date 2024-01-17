@@ -23,6 +23,14 @@
   </ul>
 {% endblock breadcrumbs %}
 
+{% if DASHBOARD_ENABLE %}
+  {% block object-tools %}
+    <div class="btn btn-icon btn-active-color-primary" id="kt_drawer_dashboard_toggle">
+      <i class="ki-duotone ki-gear fs-1"><span class="path1"></span><span class="path2"></span></i>
+    </div>
+  {% endblock object-tools %}
+{% endif %}
+
 {% block content %}
   <!--begin::Layout-->
   <div class="d-flex flex-column flex-xl-row">
@@ -124,12 +132,12 @@
                     <div class="card-header min-h-50px">
                       <!--begin::Title-->
                       <h3 class="card-title align-items-start flex-column m-0 h-50px">
-                                  <span class="card-label fw-bold text-gray-800 {% if False %}grp-module{% endif %}">
-                                    <a href="{{ app.app_url }}"
-                                       class="text-gray-500 text-hover-primary {% if False %}grp-section{% endif %}">
-                                      {% trans app.name %}
-                                    </a>
-                                  </span>
+                        <span class="card-label fw-bold text-gray-800 {% if False %}grp-module{% endif %}">
+                          <a href="{{ app.app_url }}"
+                             class="text-gray-500 text-hover-primary {% if False %}grp-section{% endif %}">
+                            {% trans app.name %}
+                          </a>
+                        </span>
                       </h3>
                       <!--end::Title-->
                     </div>
@@ -213,3 +221,9 @@
   </div>
   <!--end::Layout-->
 {% endblock content %}
+
+{% if DASHBOARD_ENABLE %}
+  {% block drawer %}
+    {% admin_render_dashboard_drawer %}
+  {% endblock drawer %}
+{% endif %}
