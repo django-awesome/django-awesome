@@ -65,7 +65,7 @@ class BaseModule:
         class_name = self.__class__.__name__
 
         if not self.template:
-            raise NotImplementedError("You must specify a template for the module %s" % class_name)
+            raise NotImplementedError(f"You must specify a template for the module {class_name}")
 
         if not self.title:
             raise NotImplementedError(f"You must specify a title for the module {class_name}")
