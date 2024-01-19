@@ -25,6 +25,9 @@ class User(AbstractUser):
         help_text=_("Allowed file types:  png, jpg, jpeg."),
     )
 
+    title = CharField(_("Title"), blank=True, max_length=255)
+    address = CharField(_("Address"), blank=True, max_length=255)
+
     def get_absolute_url(self) -> str:
         """Get URL for user's detail view.
 
@@ -33,3 +36,19 @@ class User(AbstractUser):
 
         """
         return reverse("users:detail", kwargs={"username": self.username})
+
+    def get_primary_email(self):
+        """Get user's primary email.
+
+        Returns:
+            str: Primary email.
+
+        """
+        primary_email = self.emailaddress_set.filter(primary=True).first()
+        if not primary_email:
+            return self.email
+        return primary_email.email
+
+    @property
+    def primary_email(self):
+        return self.get_primary_email()

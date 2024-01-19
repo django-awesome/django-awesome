@@ -15,7 +15,6 @@
         {% static 'media/svg/avatars/blank.svg' as avatar_url %}
         <img class="symbol symbol-35px" src="{{ avatar_url }}" alt="user avatar"/>
       {% endif %}
-
     </div>
     <!--begin::User account menu-->
     <div
@@ -43,12 +42,8 @@
                   {{ request.session.original_user.name|title }}{% else %}
                   {{ request.session.original_user.username|title }}{% endif %}
               {% else %}
-                {% if user.name %}{{ user.name|title }}{% else %}
-                  {{ user.username|title }}{% endif %}
+                {% if user.name %}{{ user.name|title }}{% else %}{{ user.username|title }}{% endif %}
               {% endif %}
-              <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">
-              {% trans 'USER TYPE' %}
-            </span>
             </div>
             <a href="#"
                class="fw-semibold text-muted text-hover-primary fs-7"> {{ user.email }} </a>
