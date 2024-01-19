@@ -45,7 +45,10 @@ class Menu:
 
     def init_with_context(self):
         self.children += [
-            AppList(_("Applications"), exclude=("django.contrib.*",)),
-            AppList(_("Administration"), models=("django.contrib.*",)),
+            AppList(
+                _("Applications"),
+                exclude=("django.contrib.*", "allauth.*", "rest_framework.authtoken.*", "one.users.*"),
+            ),
+            AppList(_("Administration"), models=("django.contrib.*", "one.users.*")),
             Bookmarks(),
         ]

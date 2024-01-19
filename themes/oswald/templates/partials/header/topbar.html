@@ -9,7 +9,12 @@
          data-kt-menu-attach="parent"
          data-kt-menu-placement="bottom-end"
     >
-      <img class="symbol symbol-35px" src="{% static 'media/avatars/300-3.jpg' %}" alt="user"/>
+      {% if user.avatar %}
+        <img class="symbol symbol-35px" src="{{ user.avatar.url }}" alt="user avatar"/>
+      {% else %}
+        {% static 'media/svg/avatars/blank.svg' as avatar_url %}
+        <img class="symbol symbol-35px" src="{{ avatar_url }}" alt="user avatar"/>
+      {% endif %}
     </div>
     <!--begin::User account menu-->
     <div
@@ -20,7 +25,12 @@
         <div class="menu-content d-flex align-items-center px-3">
           <!--begin::Avatar-->
           <div class="symbol symbol-50px me-5">
-            <img alt="Logo" src="{% static 'media/avatars/300-3.jpg' %}"/>
+            {% if user.avatar %}
+              <img src="{{ user.avatar.url }}" alt="user avatar"/>
+            {% else %}
+              {% static 'media/svg/avatars/blank.svg' as avatar_url %}
+              <img src="{{ avatar_url }}" alt="user avatar"/>
+            {% endif %}
           </div>
           <!--end::Avatar-->
           <!--begin::Username-->
@@ -32,12 +42,8 @@
                   {{ request.session.original_user.name|title }}{% else %}
                   {{ request.session.original_user.username|title }}{% endif %}
               {% else %}
-                {% if user.name %}{{ user.name|title }}{% else %}
-                  {{ user.username|title }}{% endif %}
+                {% if user.name %}{{ user.name|title }}{% else %}{{ user.username|title }}{% endif %}
               {% endif %}
-              <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">
-              {% trans 'USER TYPE' %}
-            </span>
             </div>
             <a href="#"
                class="fw-semibold text-muted text-hover-primary fs-7"> {{ user.email }} </a>

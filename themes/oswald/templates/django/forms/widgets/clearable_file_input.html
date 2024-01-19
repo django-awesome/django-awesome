@@ -1,0 +1,95 @@
+{% load static i18n %}
+{% if 'accept' in widget.attrs %}
+  {% if 'image' in widget.attrs.accept %}
+    <!--begin::Image input placeholder-->
+    <style>
+      .image-input-placeholder {
+        background-image: url("{% static 'media/svg/avatars/blank.svg' %}");
+      }
+
+      [data-bs-theme="dark"] .image-input-placeholder {
+        background-image: url("{% static 'media/svg/avatars/blank-dark.svg' %}");
+      }
+    </style>
+    <!--end::Image input placeholder-->
+
+    <!--begin::Image input-->
+    <div
+      class="image-input{% if not widget.is_initial %} image-input-empty image-input-placeholder{% else %} image-input-outline{% endif %}"
+      data-kt-image-input="true" id="{{ widget.attrs.id }}_image_input"
+      {% if widget.is_initial %} style="background-image: url({% static 'media/svg/avatars/blank.svg' %})"{% endif %}>
+
+      <!--begin::Image preview wrapper-->
+      <div class="image-input-wrapper w-125px h-125px"
+        {% if widget.is_initial %} style="background-image: url('{{ widget.value.url }}')"{% endif %}
+      ></div>
+      <!--end::Image preview wrapper-->
+
+      <!--begin::Edit button-->
+      <label class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
+             data-kt-image-input-action="change"
+             data-bs-toggle="tooltip"
+             data-bs-dismiss="click"
+             title="{% blocktrans with name=widget.name %}Change {{ name }}{% endblocktrans %}">
+        <i class="ki-duotone ki-pencil fs-6"><span class="path1"></span><span class="path2"></span></i>
+
+        <!--begin::Inputs-->
+        <input type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+        <input type="hidden" name="avatar_remove"/>
+        <!--end::Inputs-->
+      </label>
+      <!--end::Edit button-->
+
+      <!--begin::Cancel button-->
+      <span class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
+            data-kt-image-input-action="cancel"
+            data-bs-toggle="tooltip"
+            data-bs-dismiss="click"
+            title="{% blocktrans with name=widget.name %}Cancel {{ name }}{% endblocktrans %}">
+                  <i class="ki-outline ki-cross fs-3"></i>
+              </span>
+      <!--end::Cancel button-->
+
+      <!--begin::Remove button-->
+      <span class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
+            data-kt-image-input-action="remove"
+            data-bs-toggle="tooltip"
+            data-bs-dismiss="click"
+            title="{% blocktrans with name=widget.name %}Remove {{ name }}{% endblocktrans %}">
+                  <i class="ki-outline ki-cross fs-3"></i>
+              </span>
+      <!--end::Remove button-->
+    </div>
+    <!--end::Image input-->
+
+    <div class="d-none">
+      <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}" {% if widget.attrs.disabled %}disabled{% endif %}>
+    </div>
+    <script>
+      let imageInputElement = document.querySelector("#{{ widget.attrs.id }}_image_input");
+      let imageInput = new KTImageInput(imageInputElement);
+      imageInput.on("kt.imageinput.changed", function () {
+        let avatarRemove = document.querySelector("input[name='{{ widget.checkbox_name }}']");
+        $(avatarRemove).attr("checked", false);
+      });
+      imageInput.on("kt.imageinput.removed", function () {
+        let avatarRemove = document.querySelector("input[name='{{ widget.checkbox_name }}']");
+        $(avatarRemove).attr("checked", true);
+      });
+    </script>
+  {% endif %}
+
+
+{% else %}
+  {% if widget.is_initial %}
+    {{ widget.initial_text }}: <a href="{{ widget.value.url }}">{{ widget.value }}</a>
+    {% if not widget.required %}
+      <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}"
+             {% if widget.attrs.disabled %}disabled{% endif %}>
+      <label for="{{ widget.checkbox_id }}">{{ widget.clear_checkbox_label }}</label>
+    {% endif %}
+    <br>
+    {{ widget.input_text }}:
+  {% endif %}
+  <input type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+{% endif %}

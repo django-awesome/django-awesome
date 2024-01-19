@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <!--begin::Dashboard config drawer-->
 <div id="kt_drawer_dashboard" class="bg-body" data-kt-drawer="true" data-kt-drawer-name="dashboard"
@@ -8,7 +8,8 @@
   <!--begin::Messenger-->
   <div class="card w-100 border-0 rounded-0" id="kt_drawer_dashboard_config">
     <!--begin::Card header-->
-    <div class="card-header pe-5" id="kt_drawer_dashboard_config_header">
+    <div class="card-header bgi-position-y-bottom bgi-position-x-end bgi-size-cover bgi-no-repeat rounded-0 border-0 pe-5"
+         id="kt_drawer_dashboard_config_header" style="background-image:url({% static 'media/misc/layout/customizer-header-bg.jpg' %})">
       <!--begin::Title-->
       <div class="card-title">
       </div>

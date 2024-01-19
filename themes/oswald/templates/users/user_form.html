@@ -17,7 +17,8 @@
     <!--begin::Content-->
     <div id="kt_account_settings_profile_details" class="collapse show">
       <!--begin::Form-->
-      <form id="kt_account_profile_details_form" class="form" method="post" action="{% url 'users:update' %}">
+      <form id="kt_account_profile_details_form" class="form" method="post" action="{% url 'users:update' %}"
+            enctype="multipart/form-data">
         {% csrf_token %}
         <!--begin::Card body-->
         <div class="card-body border-top p-9">
@@ -31,22 +32,26 @@
               <!--end::Label-->
               <!--begin::Col-->
               <div class="col-lg-8">
-                <!--begin::Input-->
-                <input type="text" name="name" maxlength="255" id="id_name"
-                       class="form-control{% if field.errors %} is-invalid{% endif %}">
-                <!--end::Input-->
-                {% if field.help_text %}
-                  <!--begin::Hint-->
-                  <div class="form-text">{{ field.help_text|safe }}</div>
-                  <!--end::Hint-->
-                {% endif %}
-                {% if field.errors %}
-                  {% for error in field.errors %}
-                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                      {{ error }}
-                    </div>
-                  {% endfor %}
-                {% endif %}
+                <div class="form-group row">
+                  <div class="col-md-9">
+                    <!--begin::Input-->
+                    {{ field }}
+                    <!--end::Input-->
+                    {% if field.help_text %}
+                      <!--begin::Hint-->
+                      <div class="form-text">{{ field.help_text|safe }}</div>
+                      <!--end::Hint-->
+                    {% endif %}
+                    {% if field.errors %}
+                      {% for error in field.errors %}
+                        <div
+                          class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                          {{ error }}
+                        </div>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+                </div>
               </div>
               <!--end::Col-->
             </div>
