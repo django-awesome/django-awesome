@@ -11,7 +11,12 @@
         <!--begin: Pic-->
         <div class="me-7 mb-4">
           <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-            <img src="{% static 'media/avatars/300-3.jpg' %}" alt="image"/>
+            {% if user.avatar %}
+              <img src="{{ user.avatar.url }}" alt="user avatar"/>
+            {% else %}
+              {% static 'media/svg/avatars/blank.svg' as avatar_url %}
+              <img src="{{ avatar_url }}" alt="user avatar"/>
+            {% endif %}
             <div
               class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div>
           </div>
@@ -52,7 +57,7 @@
                     <span class="path1"></span>
                     <span class="path2"></span>
                   </i>SF, Bay Area</a>
-              
+
                 {% if user.primary_email %}
                   <a href="#" class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
                     <i class="ki-duotone ki-sms fs-4 me-1">
