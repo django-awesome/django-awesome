@@ -1,6 +1,7 @@
 import logging
 
 import sentry_sdk
+from django_guid.integrations import SentryIntegration as GuidSentryIntegration
 from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
@@ -103,7 +104,6 @@ ANYMAIL = {
     "MAILGUN_API_URL": env("MAILGUN_API_URL", default="https://api.mailgun.net/v3"),
 }
 
-
 # LOGGING
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#logging
@@ -113,9 +113,13 @@ ANYMAIL = {
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": True,
+    "filters": {
+        "correlation_id": {"()": "django_guid.log_filters.CorrelationId"},
+        "celery_tracing": {"()": "django_guid.integrations.celery.log_filters.CeleryTracing"},
+    },
     "formatters": {
         "verbose": {
-            "format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s",
+            "format": "%(levelname)s %(asctime)s [%(correlation_id)s] %(module)s %(process)d %(thread)d %(message)s",
         },
     },
     "handlers": {
@@ -123,6 +127,7 @@ LOGGING = {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
             "formatter": "verbose",
+            "filters": ["correlation_id", "celery_tracing"],
         }
     },
     "root": {"level": "INFO", "handlers": ["console"]},
@@ -170,5 +175,17 @@ sentry_sdk.init(
 SPECTACULAR_SETTINGS["SERVERS"] = [  # noqa: F405
     {"url": "https://example.com", "description": "Production server"},
 ]
+
+# Django GUID
+# ------------------------------------------------------------------------------
+DJANGO_GUID["INTEGRATIONS"] = [  # noqa
+    GuidSentryIntegration(),
+    GuidCeleryIntegration(  # noqa
+        use_django_logging=True,
+        log_parent=True,
+        sentry_integration=True,
+    ),
+]
+
 # Your stuff...
 # ------------------------------------------------------------------------------
