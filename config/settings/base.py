@@ -4,6 +4,7 @@ Base settings to build other settings files upon.
 from pathlib import Path
 
 import environ
+from django_guid.integrations import CeleryIntegration as GuidCeleryIntegration
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # one/
@@ -85,6 +86,7 @@ THIRD_PARTY_APPS = [
     "rest_framework.authtoken",
     "corsheaders",
     "drf_spectacular",
+    "django_guid",
 ]
 
 LOCAL_APPS = [
@@ -137,6 +139,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
+    "django_guid.middleware.guid_middleware",  # Must be first  # noqa
     "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -254,16 +257,16 @@ DJANGO_ADMIN_FORCE_ALLAUTH = env.bool("DJANGO_ADMIN_FORCE_ALLAUTH", default=Fals
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
+    "filters": {"correlation_id": {"()": "django_guid.log_filters.CorrelationId"}},
     "formatters": {
-        "verbose": {
-            "format": "%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s",
-        },
+        "verbose": {"format": "%(levelname)s %(asctime)s [%(correlation_id)s] %(name)s %(message)s"},
     },
     "handlers": {
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
             "formatter": "verbose",
+            "filters": ["correlation_id"],
         }
     },
     "root": {"level": "INFO", "handlers": ["console"]},
@@ -348,5 +351,23 @@ SPECTACULAR_SETTINGS = {
 # Dashboard Settings
 # ------------------------------------------------------------------------------
 DASHBOARD_ENABLE = True
+
+# Django GUID
+# ------------------------------------------------------------------------------
+DJANGO_GUID = {
+    "GUID_HEADER_NAME": "Correlation-ID",
+    "VALIDATE_GUID": True,
+    "RETURN_HEADER": True,
+    "EXPOSE_HEADER": True,
+    "UUID_LENGTH": 32,
+    "UUID_FORMAT": "hex",
+    "INTEGRATIONS": [
+        GuidCeleryIntegration(
+            use_django_logging=True,
+            log_parent=True,
+        )
+    ],
+}
+
 # Your stuff...
 # ------------------------------------------------------------------------------

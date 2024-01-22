@@ -40,6 +40,10 @@ _For a complete listing of all improvements, see [Django Awesome](https://django
 
 - [x] [django-filter](https://github.com/carltongibson/django-filter) - Powerful filters based on Django QuerySets.
 
+#### Logging
+
+- [x] [django-guid](https://github.com/Riso-Fork/django-guid) - Inject a GUID (Correlation-ID) into every log message in a Django request.
+
 #### Model Fields
 
 - [x] [django-model-utils](https://github.com/jazzband/django-model-utils) - Django model mixins and utilities.
