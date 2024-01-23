@@ -24,3 +24,5 @@ django-cors-headers==4.3.1  # https://github.com/adamchainz/django-cors-headers
 drf-spectacular==0.27.0  # https://github.com/tfranzel/drf-spectacular
 # Handle request
 django-riso-guid==3.4.0  # https://github.com/Riso-Fork/django-guid
+# Json Handler
+diff-match-patch==20200713  # https://github.com/diff-match-patch-python/diff-match-patch

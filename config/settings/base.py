@@ -93,6 +93,7 @@ LOCAL_APPS = [
     "one.users",
     "one.contrib.admin.menu",
     "one.contrib.admin.dashboard",
+    "one.contrib.logentries",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -151,6 +152,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "one.contrib.logentries.middleware.LogEntryMiddleware",
 ]
 
 # STATIC
@@ -364,6 +366,7 @@ DJANGO_GUID = {
     "EXPOSE_HEADER": True,
     "UUID_LENGTH": 32,
     "UUID_FORMAT": "hex",
+    "IGNORE_URLS": [f"/{ADMIN_URL}jsi18n/"],
     "INTEGRATIONS": [
         GuidCeleryIntegration(
             use_django_logging=True,
