@@ -4066,7 +4066,7 @@ Twitter: @rich_clark
 }
 .keep-grp table.grp-table.grp-sortable thead th.sortable .grp-text {
   position: relative;
-  z-index: 400;
+  /* z-index: 400; */
   display: block;
   margin: 0;
   padding: 0;

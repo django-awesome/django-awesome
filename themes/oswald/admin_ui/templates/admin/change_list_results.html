@@ -1,0 +1,68 @@
+{% load i18n static %}
+{% if result_hidden_fields %}
+  <div class="hiddenfields"> {# DIV for HTML validation #}
+    {% for item in result_hidden_fields %}{{ item }}{% endfor %}
+  </div>
+{% endif %}
+
+{% if results %}
+  <div class="table-responsive">
+    <div class="keep-grp grp-module grp-changelist-results">
+      <table id="result_list" cellspacing="0" class="table grp-table grp-sortable">
+        <thead>
+        <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
+          {% for header in result_headers %}
+            {% if forloop.first %}
+              <th scope="col">
+                <div class="flex-center form-check form-check-custom form-check-solid mx-2 my-1">
+                  <input class="form-check-input" type="checkbox" id="action-toggle"/>
+                </div>
+              </th>
+            {% else %}
+              <th scope="col" {{ header.class_attrib }}>
+                {% if header.sortable %}
+                  {% if header.sort_priority > 0 %}
+                    <div class="grp-sortoptions" style="margin-top: 3px;">
+                      <a href="{{ header.url_toggle }}"
+                         class="grp-toggle {% if header.ascending %}grp-ascending{% else %}grp-descending{% endif %}"
+                         title="{% trans "Toggle sorting" %}"></a>
+                      {% if num_sorted_fields > 1 %}
+                        <span class="grp-sortpriority"
+                              title="{% blocktrans with priority_number=header.sort_priority %}Sorting priority: {{ priority_number }}{% endblocktrans %}">
+                        {{ header.sort_priority }}
+                      </span>
+                      {% endif %}
+                      <a class="grp-sortremove" href="{{ header.url_remove }}"
+                         title="{% trans "Remove from sorting" %}"></a>
+                    </div>
+                  {% endif %}
+                {% endif %}
+                <div class="grp-text">
+                  {% if header.sortable %}
+                    <a href="{{ header.url_primary }}" style="margin-top: 3px;">{{ header.text|capfirst }}</a>
+                  {% else %}
+                    <span style="margin-top: 3px;">{{ header.text|capfirst }}</span>
+                  {% endif %}
+                </div>
+              </th>
+            {% endif %}
+          {% endfor %}
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for result in results %}
+          {% if result.form.non_field_errors %}
+            <tr class="grp-errors">
+              <td colspan="{{ result|length }}">{{ result.form.non_field_errors }}</td>
+            </tr>
+          {% endif %}
+          <tr class="grp-row {% cycle 'grp-row-odd' 'grp-row-even' %}">
+            {% for item in result %}{{ item }}{% endfor %}
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endif %}
