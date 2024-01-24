@@ -359,3 +359,13 @@
   </div>
   <!--end::Footer-->
 {% endblock footer %}
+
+{% block inline_javascript %}
+  <script>
+    $(document).ready(function () {
+      let action_toggle = $('#action-toggle');
+      action_toggle.addClass('form-check-input');
+      action_toggle.parent().addClass('form-check form-check-custom form-check-solid');
+    });
+  </script>
+{% endblock inline_javascript %}
