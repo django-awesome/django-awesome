@@ -5,11 +5,13 @@
 {% block stylesheets %}
   {{ block.super }}
   {{ media.css }}
+  <link href="{% static 'plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css"/>
 {% endblock %}
 
 {% block javascripts %}
   {{ block.super }}
   {{ media.js }}
+  <script src="{% static 'plugins/custom/datatables/datatables.bundle.js' %}"></script>
   {% if cl.formset or action_form %}
     {% url 'admin:jsi18n' as jsi18nurl %}
     <script type="text/javascript" src="{{ jsi18nurl|default:'../../jsi18n/' }}"></script>
@@ -123,6 +125,7 @@
         e.preventDefault();
         showRelatedObjectLookupPopup(this);
       });
+      $('.action-checkbox').addClass('pe-0');
     });
   </script>
 {% endblock %}
@@ -246,7 +249,7 @@
                           </i>
                         </a>
                         <div data-kt-menu="true"
-                             class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-300px"
+                             class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-600px"
                         >
                           <div class="grp-pulldown-content">
                             <!--begin::Menu item-->
@@ -295,29 +298,29 @@
       <form id="grp-changelist-form" action="" method="post"
             {% if cl.formset.is_multipart %}enctype="multipart/form-data"{% endif %} novalidate>
         {% csrf_token %}
-        <div class="keep-grp">
-          <section id="grp-changelist" class="{% if cl.list_editable %} grp-editable{% endif %}">
-            <header style="display:none"><h1>Results</h1></header>
-            <!-- POPUP -->
-            {% if is_popup %}<input type="hidden" name="_popup" value="1"/>{% endif %}
-            <!-- ERRORS -->
-            {% if cl.formset.errors %}
-              <p class="errornote">
-                {% if cl.formset.total_error_count == 1 %}{% trans "Please correct the error below." %}{% else %}
-                  {% trans "Please correct the errors below." %}{% endif %}
-              </p>
-              {{ cl.formset.non_form_errors }}
-            {% endif %}
-            <!-- MANAGEMENT FORM -->
-            {% if cl.formset %}
-              {{ cl.formset.management_form }}
-            {% endif %}
-            <!-- CHANGELIST-RESULTS -->
-            {% block result_list %}
-              {% result_list cl %}
-            {% endblock %}
-          </section>
-        </div>
+
+        <section id="grp-changelist" class="{% if cl.list_editable %} grp-editable{% endif %}">
+          <header style="display:none"><h1>Results</h1></header>
+          <!-- POPUP -->
+          {% if is_popup %}<input type="hidden" name="_popup" value="1"/>{% endif %}
+          <!-- ERRORS -->
+          {% if cl.formset.errors %}
+            <p class="errornote">
+              {% if cl.formset.total_error_count == 1 %}{% trans "Please correct the error below." %}{% else %}
+                {% trans "Please correct the errors below." %}{% endif %}
+            </p>
+            {{ cl.formset.non_form_errors }}
+          {% endif %}
+          <!-- MANAGEMENT FORM -->
+          {% if cl.formset %}
+            {{ cl.formset.management_form }}
+          {% endif %}
+          <!-- CHANGELIST-RESULTS -->
+          {% block result_list %}
+            {% result_list cl %}
+          {% endblock %}
+        </section>
+
 
         {% if cl.formset or action_form %}
           <div class="app-footer keep-grp">
