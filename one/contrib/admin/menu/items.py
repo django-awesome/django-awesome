@@ -350,18 +350,21 @@ class Bookmarks(MenuItem, AppListElementMixin):
         change_url = f"admin:{app_label}_{model_name}_change"
         delete_url = f"admin:{app_label}_{model_name}_delete"
 
-        for b in Bookmark.objects.filter(user=context["request"].user):
-            self.children.append(
-                MenuItem(
-                    id=b.id,
-                    title=mark_safe(b.title),
-                    url=b.url,
-                    description=b.description,
-                    bookmark=True,
-                    change_url=reverse(change_url, args=(b.id,)),
-                    delete_url=reverse(delete_url, args=(b.id,)),
+        try:
+            for b in Bookmark.objects.filter(user=context["request"].user):
+                self.children.append(
+                    MenuItem(
+                        id=b.id,
+                        title=mark_safe(b.title),
+                        url=b.url,
+                        description=b.description,
+                        bookmark=True,
+                        change_url=reverse(change_url, args=(b.id,)),
+                        delete_url=reverse(delete_url, args=(b.id,)),
+                    )
                 )
-            )
+        except:  # noqa
+            pass
 
         if not len(self.children):
             self.enabled = False
