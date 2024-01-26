@@ -328,6 +328,7 @@ ACCOUNT_FORMS = {"signup": "one.libraries.allauth.forms.UserSignupForm"}
 SOCIALACCOUNT_ADAPTER = "one.libraries.allauth.adapters.SocialAccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/forms.html
 SOCIALACCOUNT_FORMS = {"signup": "one.libraries.allauth.forms.UserSocialSignupForm"}
+DJANGO_ADMIN_FORCE_ALLAUTH = env.bool("DJANGO_ADMIN_FORCE_ALLAUTH", default=True)
 
 # django-rest-framework
 # -------------------------------------------------------------------------------
